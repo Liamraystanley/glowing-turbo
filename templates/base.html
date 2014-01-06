@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="http://minecraft.net/favicon.ico">
+    <title>Wonderful Planet &middot; {% block title %}{% endblock title %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/main.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="/static/js/Chart.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+    {% block head %}
+    <!-- ========== HEADER SECTION ========== -->
+    <section id="home" name="home"></section>
+    <div id="headerwrap">
+        <div class="container">
+            <div class="row">
+                <h1>WONDERFUL PLANET</h1>
+                <h2>MINECRAFT SERVERS</h2>
+                <a class="btn btn-lg btn-danger"><i class="fa fa-gamepad"></i> play.wonderfulplanet.net</i></a>
+                <a class="btn btn-success btn-lg" href="http://forum.wonderfulplanet.net" target="_blank"><i class="fa fa-users"></i> Visit our forums</a>
+                {% if data.getPlayerNames %}
+                    <h4>ONLINE PLAYERS: <font color="green">{{ data.getPlayerCount }}/{{ data.getPlayerLimit }}</font></h4>
+                    <div class="container" width="500px">
+                        {% for player in data.getPlayerNames %}
+                            <span class="tip" title="{{ player }}">
+                                <img src="/static/skins/{{ player }}.png" alt="{{ player }}" style="width:30px;height:30px;">
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <h4>Server version: <a href="http://ci.md-5.net/job/Spigot/">{{ data.getServerVersion }}</a></h4>
+        {% include "menu.html" %}
+        </div><!-- /container -->
+    </div><!-- /headerwrap -->
+    {% endblock head %}
+    
+    {% block content %}{% endblock content %}
+    
+    <!-- ========= COPYRIGHT SECTION ========= -->
+    <section id="copyright" name="copyright"></section>
+    <div id="f">
+        <div class="container">
+            <div class="pull-left"><span class="label label-primary"><a href="/api">API</a></span></div>
+            <div class="pull-right ubuntu">COPYRIGHT <a href="http://liamstanley.net/license">LIAM STANLEY</a> 2014</div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $('.tip').tooltip({
+                //placement: 'bottom'
+            });
+        });
+    </script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/static/js/classie.js"></script>
+    <script src="/static/js/smoothscroll.js"></script>
+</body>
+</html>

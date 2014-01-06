@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock title %}
+{% block content %}
+<section id="posts" name="posts"></section>
+    <div id="f">
+        <div class="container">
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th class="success">Name</th>
+                        <!--<th>Version</th>-->
+                        <th class="success" width="700px">Description</th>
+                        <th class="success">Authors</th>
+                        <th class="success">Enabled</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for plugin in data.getPlugins %}
+                        <tr class="active">
+                            <td>
+                                {% if plugin.website %}
+                                    <a href="{{ plugin.website }}">{{ plugin.name }}</a>
+                                {% else %}
+                                    {{ plugin.name }}
+                                {% endif %}
+                            </td>
+                            <!--<td>{{ plugin.version }}</td>-->
+                            <td>{{ plugin.description }}</td>
+                            <td>
+                                {% for author in plugin.authors %}
+                                    <span class="label label-primary"><a href="http://forums.bukkit.org/members/?username={{ author }}">{{ author }}</a></span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% if plugin.enabled %}
+                                    <span class="label label-success">{{ plugin.enabled }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ plugin.enabled }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Error 404 &middot; Page not found{% endblock %}
+{% block header %}404{% endblock header %}
+{% block head %}
+    <!-- ========== HEADER SECTION ========== -->
+    <section id="home" name="home"></section>
+    <div id="headerwrap">
+        <div class="container">
+            <br>
+            <h1 style="text-shadow: 1px 1px .5px black">Error 404</h1>
+            <h2 style="text-shadow: 2px 2px .5px black">Page not found.</h2>
+            <!--<a class="btn btn-success btn-large" href="/"><i class="fa fa-home"></i> Head back home</a>-->
+            {% include "menu.html" %}
+        </div><!-- /container -->
+    </div><!-- /headerwrap -->
+{% endblock %}

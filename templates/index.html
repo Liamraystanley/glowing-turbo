@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+    <div id="f">
+        <div class="container" id="news">
+            <h2 class="text-center white">Forum News</h2>
+            {% for post in posts %}
+                <div class="panel panel-primary ubuntu">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="height:20px;">
+                            <a href="{{ post.link }}">
+                                <i class="fa fa-list-alt pull-left" style="font-size:20px"></i> {{ post.title }}
+                                <i class="fa fa-share-square-o pull-right" style="font-size:20px"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="panel-body" style="font-size:20px;">
+                        {{ post.content|safe }}
+                    </div>
+                    <div class="panel-footer">
+                         Posted by <a href="http://forum.wonderfulplanet.net/index.php?members&username={{ post.author }}">@{{ post.author }}</a> (On {{ post.date }})
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="f">
+        <div class="container" id="system">
+            <div class="row">
+                <h2 class="text-center white">System Resources</h2>
+                <p class="centered"><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i></p>
+                <div class="col-md-4">
+                    <center>
+                        <h3>HDD Usage</h3><br /><br />
+                        <canvas id="hdd" width="200px"></canvas>
+                        <script>
+                            var data = [
+                                {value : {{ data.hdduse }}, color : "grey"}, {value : {{ data.hddfree }}, color : "#D68800"}
+                            ];
+                            var myPie = new Chart(document.getElementById("hdd").getContext("2d")).Doughnut(data);
+                        </script>
+                        <p><i class="fa fa-circle" style="color: orange;"></i> Used HDD Space
+                        <br /><i class="fa fa-circle" style="color: grey;"></i> Free HDD Space</p>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center>
+                        <h3>RAM Usage</h3><br /><br />
+                        <canvas id="ram" width="200px"></canvas>
+                        <script>
+                            var data = [
+                                {value : {{ data.unusedram }}, color : "grey"}, {value : {{ data.usedram }}, color : "#D68800"}
+                            ];
+                            var myPie = new Chart(document.getElementById("ram").getContext("2d")).Doughnut(data);
+                        </script>
+                        <p><i class="fa fa-circle" style="color: orange;"></i> Used RAM
+                        <br /><i class="fa fa-circle" style="color: grey;"></i> Unused RAM</p>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center>
+                        <h3>Player Count</h3><br /><br />
+                        <canvas id="players" width="200px"></canvas>
+                        <script>
+                            var data = [
+                                {value : {{ data.offline }}, color : "grey"}, {value : {{ data.online }}, color : "#D68800"}
+                            ];
+                            var myPie = new Chart(document.getElementById("players").getContext("2d")).Doughnut(data);
+                        </script>
+                        <p><i class="fa fa-circle" style="color: orange;"></i> Online Players
+                        <br /><i class="fa fa-circle" style="color: grey;"></i> Offline Players</p>
+                    </center>
+                </div> 
+            </div>
+        </div><!-- /container -->
+    </div><!-- /f -->
+{% endblock content %}
