@@ -1,4 +1,4 @@
-bearded-ninja
+glowing-turbo
 =============
 
 Python &amp; Flask (Python module) Backend for WonderfulPlanet MC Servers (http://wonderfulplanet.net)
@@ -20,5 +20,5 @@ Make sure you have a file called "settings.py" in your root folder, which holds 
 
 Once Python (with flask module) is installed, and screen is installed, execute these commands...:
 
-    git clone https://github.com/Liamraystanley/bearded-ninja.git && cd bearded-ninja
+    git clone https://github.com/Liamraystanley/glowing-turbo.git && cd glowing-turbo
     python app.py
