@@ -10,7 +10,7 @@ Flask from here: http://flask.pocoo.org/
 Make sure you have a file called "settings.py" in your root folder, which holds this data:
 
     params = {
-        'host': 'you.hostname.net', # Host or IP
+        'host': 'your.hostname.net', # Host or IP
         'port': 20059, # Default
         'username': 'admin',
         'password': 'yourpass',
