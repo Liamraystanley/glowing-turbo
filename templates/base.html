@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="http://minecraft.net/favicon.ico">
+    <link rel="shortcut icon" href="/static/favicon.ico">
     <title>Wonderful Planet &middot; {% block title %}{% endblock title %}</title>
 
     <!-- Bootstrap core CSS -->
@@ -31,7 +31,8 @@
                 <h1>WONDERFUL PLANET</h1>
                 <h2>MINECRAFT SERVERS</h2>
                 <a class="btn btn-lg btn-danger"><i class="fa fa-gamepad"></i> play.wonderfulplanet.net</i></a>
-                <a class="btn btn-success btn-lg" href="http://forum.wonderfulplanet.net" target="_blank"><i class="fa fa-users"></i> Visit our forums</a>
+                <a class="btn btn-success btn-lg" href="http://forum.wonderfulplanet.net"><i class="fa fa-users"></i> Visit our forums</a>
+          <a class="btn btn-lg btn-danger" href="/classic"><i class="fa fa-gamepad"></i> Play Classic (Free!)</i></a>
                 {% if data.getPlayerNames %}
                     <h4>ONLINE PLAYERS: <font color="green">{{ data.getPlayerCount }}/{{ data.getPlayerLimit }}</font></h4>
                     <div class="container" width="500px">

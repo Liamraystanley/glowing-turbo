@@ -10,26 +10,43 @@ import skin
 # http://alecgorge.github.io/jsonapi/
 
 def jsonapi(params, methodData):
-    key = sha256(params['username'] + json.dumps(methodData.keys()) + params['password'] + params['salt']).hexdigest()
+    """Pull data from Bukkit/Spigot Plugin, JSONAPI, to be further used later on"""
+    if len(methodData) == 1:
+        method_format = methodData.keys()[0]
+    else:
+        method_format = json.dumps(methodData.keys())
+    
+    key = sha256(params['username'] + method_format + params['password'] + params['salt']).hexdigest()
+    
     methods, args = [], []
 
     for methodName, methodArgs in methodData.iteritems():
         methods.append(methodName)
         args.append(methodArgs)
 
-    uri = 'http://{host}:{port}/api/call-multiple?method={methods}&args={args}&key={key}'.format(
-           host=params['host'],
-           port=str(params['port']),
-           methods=quote(json.dumps(methods)),
-           args=quote(json.dumps(args)),
-           key=key
+    if len(methods) == 1:
+        methods = methods[0]
+        uri = 'http://{host}:{port}/api/call?method={methods}&args={args}&key={key}'
+    else:
+        methods = quote(json.dumps(methods))
+        uri = 'http://{host}:{port}/api/call-multiple?method={methods}&args={args}&key={key}'
+
+    uri = uri.format(
+        host=params['host'],
+        port=str(params['port']),
+        methods=methods,
+        args=quote(json.dumps(args)),
+        key=key
     )
 
     try:
         data = json.loads(urlopen(uri).read())
+        print data
         returnData = {}
         if data['result'] != 'success':
             return False
+        if data['success'] == None:
+            return True
         for response in data['success']:
             returnData[response['source']] = response['success']
     except:

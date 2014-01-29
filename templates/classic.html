@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Play Classic{% endblock title %}
+{% block head %}
+    <!-- ========== HEADER SECTION ========== -->
+    <section id="home" name="home"></section>
+    <div id="headerwrap">
+        <div class="container">
+          {% include "menu.html" %}
+          <div class="alert alert-danger alert-dismissable" style="margin-top:20px;">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong>Warning!</strong> The latest java update requires a code-signing certificate, which we're
+              in the process of buying. Until we've got the certificate, the webclient will not work and you'll
+              have to use the standalone client. <strong>If you haven't updated your Java, please use
+              our standalone client and update until we've fixed the issue.</strong><br><br>
+            <a class="btn btn-danger" href="http://static.classicube.net/client/ClassiCube.exe">Windows client</a> |
+            <a class="btn btn-danger" href="http://static.classicube.net/client/ClassiCube.jar">Mac/Linux client</a> |
+            <a class="btn btn-info" href="http://www.classicube.net/acc/register/" target="_blank">Register for an account</a>
+          </div>
+          <iframe src="{{ server }}?embed=True" style="height:600px;width:800px;display:block;margin:auto;padding:15px 0;border:0;"></iframe>
+        </div><!-- /container -->
+    </div><!-- /headerwrap -->
+{% endblock head %}

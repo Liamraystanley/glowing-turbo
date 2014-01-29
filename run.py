@@ -1,5 +1,5 @@
-import flask
-import json, os, xmltodict, urllib2
+import os, flask
+import json, xmltodict, urllib2
 from HTMLParser import HTMLParser as h
 import utils, time
 from random import randint as gen
@@ -42,27 +42,27 @@ def index_handler(page="index"):
     data['offline'] = 100-data['online']
 
     # Try to load skins.db
-    #if not os.path.isfile('skins.db'):
-    #    # Never made the DB before...
-    #    skindb = {}
-    #else:
-    #    with open('skins.db','r') as f:
-    #        skindb = json.loads(f.read())
-    ##full_players = list(set(data['getPlayerNames'] + data['getOfflinePlayerNames']))
-    #for player in data['getPlayerNames']:
-    #    if player not in skindb:
-    #        # Never generated before...
-    #        utils.gen_skin(player,16)
-    #        skindb[player] = time.time()
-    #        print 'Generating skin for %s' % player
-    #    else:
-    #        # Assume their name is in the DB.. check times!
-    #        diff = int(time.time()) - int(skindb[player])
-    #        if diff > 43200:
-    #            utils.gen_skin(player,16)
-    #            skindb[player] = time.time()
-    #with open('skins.db', 'w') as f:
-    #    f.write(json.dumps(skindb,indent=4))
+    if not os.path.isfile('skins.db'):
+        # Never made the DB before...
+        skindb = {}
+    else:
+        with open('skins.db','r') as f:
+            skindb = json.loads(f.read())
+    full_players = list(set(data['getPlayerNames'] + data['getOfflinePlayerNames']))
+    for player in data['getPlayerNames']:
+        if player not in skindb:
+            # Never generated before...
+            utils.gen_skin(player,16)
+            skindb[player] = time.time()
+            print 'Generating skin for %s' % player
+        else:
+            # Assume their name is in the DB.. check times!
+            diff = int(time.time()) - int(skindb[player])
+            if diff > 43200:
+                utils.gen_skin(player,16)
+                skindb[player] = time.time()
+    with open('skins.db', 'w') as f:
+        f.write(json.dumps(skindb,indent=4))
     # Here, we pull news posts from the forums. This is derp but it'll work...
     posts, uri = [], 'http://forum.wonderfulplanet.net/index.php?forums/news/index.rss'
     forum = xmltodict.parse(urllib2.urlopen(uri).read())['rss']['channel']
@@ -85,6 +85,16 @@ def index_handler(page="index"):
     if os.path.isfile('templates/' + page):
         return flask.render_template(page, data=data, posts=posts)
     return flask.abort(404)
+
+
+@app.route('/classic')
+def classic():
+    try:
+        server = urllib2.urlopen('http://server2.liamstanley.net/play.txt').read()
+    except:
+        flask.abort(404)
+    return flask.render_template('classic.html', server=server)
+
 
 @app.route('/api')
 def api_handler():
@@ -116,4 +126,5 @@ def add_header(response):
 
 # Debug should normally be false, so we don't display hazardous information!
 app.debug = True
-app.run(host='0.0.0.0', port=5007)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5007)
