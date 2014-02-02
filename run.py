@@ -90,7 +90,7 @@ def index_handler(page="index"):
 @app.route('/classic')
 def classic():
     try:
-        server = urllib2.urlopen('http://server2.liamstanley.net/play.txt').read()
+        server = urllib2.urlopen('http://server2.liamstanley.io/play.txt').read()
     except:
         flask.abort(404)
     return flask.render_template('classic.html', server=server)
